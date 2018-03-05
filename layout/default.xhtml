@@ -1,57 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>#{@title}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="expires" content="0" />
+	<meta name="description" content="一見何もないサイトの裏側に何があるのか？" />
+	<meta name="generator" content="Ramaze #{Ramaze::VERSION}" />
+	<meta name="keywords" content="ダビスタ, 日詰" />
+	<meta name="author" content="aldentea" />
+	<meta name="date" content="#{Time.now.iso8601}" />
+	#{css('screen')}
+</head>
 
-        <title>#{@title}</title>
 
-        #{css('reset')}
-        #{css('grid')}
-        #{css('layout')}
-        #{css('text')}
-    </head>
-    <body>
-        <div class="container">
-            <div id="container" class="row">
-                <!-- Top part, contains the navigation menu -->
-                <div id="top" class="grid_12">
-                    <header class="grid_6">
-                        <h1>#{@title}</h1>
-                    </header> 
 
-                    <nav class="grid_6 last">
-                        <ul class="clearfix">
-                            <li>
-                                <a href="http://ramaze.net/">Website</a>
-                            </li>
-                            <li>
-                                <a href="http://ramaze.net/documentation/index.html">
-                                    Documentation
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://groups.google.com/forum/#!forum/ramaze">
-                                    Mailing List
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+<body>
 
-                <div id="content" class="grid_12">
-                    #{@content}
-                </div>
-            </div>
+  <h1>#{@title}</h1>
 
-            <footer id="footer">
-                <p>
-                    Ramaze is free software and is licensed under the MIT license.<br />
-                    All textual content is licensed under a 
-                    <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
-                        Creative Commons license.
-                    </a>
-                </p>
-            </footer>
-        </div>
-    </body>
+	<?r if flash[:error] ?>
+	<div id="notice_error"><p>#{flash[:error]}</p></div>
+	<?r end ?>
+	<?r if flash[:info] ?>
+	<div id="notice_info"><p>#{flash[:info]}</p></div>
+	<?r end ?>
+
+	<!-- #{MainController.render_partial :topmenu} -->
+
+	<main>
+		#{@content}
+	</main>
+
+  <footer id="footer">
+	<?r unless @skip_login_information ?>
+	#{MainController.render_partial :login_information}
+	<?r end ?>
+  </footer>
+
+  </body>
 </html>
