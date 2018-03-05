@@ -5,15 +5,15 @@
   <?r if current_user ?>
   <p>現在のユーザ： #{current_user.nickname}
   <?r else ?>
-  <p>#{current_identifier}でログイン中 #{AuthController.a('ユーザ登録', :register)}
+  <p>#{current_identifier}でログイン中 {AuthController.a('ユーザ登録', :register)}
   <?r end ?>
-  #{AuthController.a('ログアウト', :logout)}</p>
+  #{AuthController.a('ログアウト', :destroy)}</p>
 <?r else ?>
 <h3>ログイン</h3>
 <p>以下のアカウントを使ってログインすることができます。</p>
 <ol>
-<li>#{AuthController.a("Googleアカウント", :g_login)}</li>
-<li>#{AuthController.a("Yahooアカウント, :y2_login)}</li>
+<li>{AuthController.a("Googleアカウント", :g_login)}</li>
+<li>{AuthController.a("Yahooアカウント, :y2_login)}</li>
 </ol>
 <?r end ?>
 
