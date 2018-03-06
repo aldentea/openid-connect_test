@@ -6,4 +6,6 @@ require 'ramaze'
 # Make sure that Ramaze knows where you are
 Ramaze.options.roots = [__DIR__]
 
+require_relative 'middleware_setup'
+
 require __DIR__('controller/init')

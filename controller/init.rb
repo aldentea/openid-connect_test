@@ -2,6 +2,8 @@
 # that these changes can be overwritten in sub controllers by simply calling the method
 # but with a different value.
 
+Ramaze.options.prefix = "/usagisan"
+
 class Controller < Ramaze::Controller
   layout :default
   helper :xhtml
