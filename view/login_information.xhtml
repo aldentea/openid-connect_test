@@ -3,11 +3,11 @@
 <?r if logged_in? ?>
   <h3>ログイン情報</h3>
   <?r if current_user ?>
-  <p>現在のユーザ： #{current_user.nickname}
+  <p>現在のユーザ： #{current_user.name}
   <?r else ?>
-  <p>#{current_identifier}でログイン中 {AuthController.a('ユーザ登録', :register)}
+  <p>#{current_identifier}でログイン中 {NakanohitoController.a('ユーザ登録', :register)}
   <?r end ?>
-  #{AuthController.a('ログアウト', :destroy)}</p>
+  #{MainController.a('ログアウト', :destroy)}</p>
 <?r else ?>
 <h3>ログイン</h3>
 <p>以下のアカウントを使ってログインすることができます。</p>

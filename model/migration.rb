@@ -19,5 +19,33 @@ migration 1, :create_users_table do
   end
 end
 
+migration 2, :create_identities_table do
+	up do
+		create_table :identities do
+			column :id, Integer, :serial => true
+			column :user_id, Integer
+			column :iss, String, :length => 256
+			column :sub, String, :length => 256
+		end
+	end
+	down do
+		drop_table :identities
+	end
+end
+
+migration 3, :add_email_column_to_users_table do
+	up do
+		modify_table :users do
+			add_column :email, String, :length => 256
+		end
+	end
+	down do
+    modify_table :users do
+			drop_column :email
+    end
+	end
+end
+
+
 #migrate_up!
 

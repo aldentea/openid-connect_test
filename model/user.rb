@@ -4,8 +4,9 @@ class User
 
   property :id, Serial
   property :name, String, :length => 40
+  property :email, String, :length => 40
   property :kanrisya, Boolean, :default => false
-
+  has n, :identities
 
   def self.find_by_identity(issuer, sub = nil)
 		params = issuer.is_a?(Hash) ? issuer : {:iss => issuer, :sub => sub}

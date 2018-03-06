@@ -12,19 +12,59 @@ class Controller < Ramaze::Controller
 
   # Helper methods
 
-  def current_user
-    return unless session[:user_id]
-    @current_user ||= User.find(session[:user_id])
-  end
+  #def current_user
+  #  return unless session[:user_id]
+  #  @current_user ||= User.find(session[:user_id])
+  #end
 
-  def logged_in?
-    !!session[:user_id]
-  end
+  #def logged_in?
+  #  !!session[:user_id]
+  #end
 
-  def authenticate
-    return if logged_in?
+  #def authenticate
+  #  return if logged_in?
     #redirect_to root_path
-  end
+  #end
+
+  protected
+
+	def clear_user
+		session.delete(:identifier)
+		session.delete(:expire_at)
+		session.delete(:registering_email)
+		return nil
+	end
+
+	def current_identifier
+		if session[:expire_at]
+			expire_time = Time.parse(session[:expire_at])
+			if session[:identifier]
+				if expire_time > Time.now
+					session[:identifier]
+				else
+					clear_user
+				end
+			else
+				nil
+			end
+		end
+	end
+
+	#def print_current_identifier
+	#	session[:identifier][:iss] + session[:identifier][:sub]
+	#end
+
+	def logged_in?
+		!!current_identifier
+	end
+
+	def current_user
+		User.find_by_identity(current_identifier)
+	end
+
+	def kanrinin?
+		(user = current_user) && user.kanrinin
+	end
 
 
 end
