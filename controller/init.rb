@@ -26,33 +26,40 @@ class Controller < Ramaze::Controller
     #redirect_to root_path
   #end
 
+  def logout
+    clear_user
+    flash[:info] = "Logout."
+    redirect_referrer
+  end
+
   protected
+
 
 	def clear_user
 		session.delete(:identifier)
-		session.delete(:expire_at)
+		#session.delete(:expire_at)
 		session.delete(:registering_email)
 		return nil
 	end
 
 	def current_identifier
-		if session[:expire_at]
-			expire_time = Time.parse(session[:expire_at])
-			if session[:identifier]
-				if expire_time > Time.now
+		#if session[:expire_at]
+		#	expire_time = Time.parse(session[:expire_at])
+		#	if session[:identifier]
+		#		if expire_time > Time.now
 					session[:identifier]
-				else
-					clear_user
-				end
-			else
-				nil
-			end
-		end
+		#		else
+		#			clear_user
+		#		end
+		#	else
+		#		nil
+		#	end
+		#end
 	end
 
-	#def print_current_identifier
-	#	session[:identifier][:iss] + session[:identifier][:sub]
-	#end
+	def print_current_identifier
+    session[:identifier] ? "#{session[:identifier][:iss]} -- #{session[:identifier][:sub]}" : "Nobodyknows+"
+	end
 
 	def logged_in?
 		!!current_identifier
@@ -66,6 +73,10 @@ class Controller < Ramaze::Controller
 		(user = current_user) && user.kanrinin
 	end
 
+  # for debug
+  def session_inspect
+    session.class
+  end
 
 end
 
@@ -80,4 +91,5 @@ end
 #
 require_relative 'main'
 require_relative 'auth'
+require_relative 'nakanohito'
 

@@ -8,4 +8,5 @@ Ramaze.options.roots = [__DIR__]
 
 require_relative 'middleware_setup'
 
+require_relative 'model/init'
 require __DIR__('controller/init')

@@ -5,9 +5,9 @@
   <?r if current_user ?>
   <p>現在のユーザ： #{current_user.name}
   <?r else ?>
-  <p>#{current_identifier}でログイン中 {NakanohitoController.a('ユーザ登録', :register)}
+  <p>#{print_current_identifier}でログイン中 {NakanohitoController.a('ユーザ登録', :register)}
   <?r end ?>
-  #{MainController.a('ログアウト', :destroy)}</p>
+  #{a('ログアウト', :logout)}</p>
 <?r else ?>
 <h3>ログイン</h3>
 <p>以下のアカウントを使ってログインすることができます。</p>
@@ -16,5 +16,7 @@
 <li>#{AuthController.a("Yahooアカウント", :yconnect)}</li>
 </ol>
 <?r end ?>
+
+<p>#{print_current_identifier}</p>
 
 </section>

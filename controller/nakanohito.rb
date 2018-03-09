@@ -1,12 +1,12 @@
 
 class NakanohitoController < Controller
-  
+
   def register
     @title = "ユーザ登録"
     if request.post?
-      user = User.create(:name => request[:nickname], :identity_uri => session[:openid_identity])
+      user = User.create(:name => request[:nickname], :email => request[:email], :identifier => session[:identifier])
       if user.saved?
-        flash[:success] = "New user '#{user.nickname}' has created."
+        flash[:success] = "New user '#{user.name}' has created."
         redirect MainController.r(:index)
       else
         user.errors.each do |e|
@@ -20,5 +20,5 @@ class NakanohitoController < Controller
     end
   end
 
-  
+
 end

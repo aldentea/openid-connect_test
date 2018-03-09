@@ -4,7 +4,7 @@ class User
 
   property :id, Serial
   property :name, String, :length => 40
-  property :email, String, :length => 40
+  property :email, String, :length => 96
   property :kanrisya, Boolean, :default => false
   has n, :identities
 
@@ -20,12 +20,17 @@ class User
 		self.identities.map(&:identifier)
 	end
 
-	# You can use :iss and :sub.
+	# You can use :iss and :sub?
 	def self.create(attributes = {})
 		isser = attributes.delete(:iss)
 		sub = attributes.delete(:sub)
+    identifier = attributes.delete(:identifier)
 		u = super(attributes)
-		u.identities.create(:iss => isser, :sub => sub) if isser && sub
+    if (isser & sub)
+      u.identities.create(:iss => isser, :sub => sub)
+    else
+      u.identities.create(identifier)
+    end
 		u
 	end
 
