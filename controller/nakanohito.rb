@@ -3,6 +3,10 @@ class NakanohitoController < Controller
 
   before(:register) { redirect_index unless logged_in? }
 
+  def index
+    redirect r(:limited)
+  end
+
   def register
     @title = "ユーザ登録"
     if request.post?
