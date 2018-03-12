@@ -1,0 +1,25 @@
+# このファイルでプロバイダの設定を行い、"setup_middleware.rb"として保存する。
+
+require 'omniauth-openid-connect'
+
+# モードは適宜設定する。(Ramaze.options.modeに対応。既定では [:dev, :live] が用意されている。)
+Ramaze.middleware :dev do
+    use Rack::Session::Cookie, :secret => "#{暗号化キーを任意に設定する}"
+    use OmniAuth::Builder do
+        provider :openid_connect, {
+            # 名前をつける。認証のためのエントリポイントやコールバックのアドレスに影響する。
+            name: :yconnect, 
+            issuer: 'https://auth.login.yahoo.co.jp/yconnect/v2',
+            scope: ['openid', 'email'],  # 適宜設定する。
+            response_type: :code,
+            discovery: true,
+            client_options: {
+                identifier: "#{プロバイダから与えられたIDを記入する。}",
+                secret: "#{プロバイダから与えられたsecretを記入する。}",
+                redirect_uri: "#{プロバイダ側に設定したURIを記入する。'/auth/:name/callback'で終わる。}"
+            }
+        }
+        # providerを複数設定することもできる。
+    end
+    run Ramaze.core
+end
