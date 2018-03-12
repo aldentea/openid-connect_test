@@ -5,7 +5,7 @@
   <?r if current_user ?>
   <p>現在のユーザ： #{current_user.name}
   <?r else ?>
-  <p>#{print_current_identifier}でログイン中 {NakanohitoController.a('ユーザ登録', :register)}
+  <p>#{print_current_identifier}でログイン中 #{NakanohitoController.a('ユーザ登録', :register)}
   <?r end ?>
   #{a('ログアウト', :logout)}</p>
 <?r else ?>

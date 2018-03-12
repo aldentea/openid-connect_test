@@ -1,6 +1,8 @@
 
 class NakanohitoController < Controller
 
+  before(:register) { redirect_index unless logged_in? }
+
   def register
     @title = "ユーザ登録"
     if request.post?
@@ -18,6 +20,21 @@ class NakanohitoController < Controller
       @nickname = ""
       @email = session[:registering_email]
     end
+  end
+
+  def limited
+    if current_user
+      @title = "Welcome!"
+      @name = current_user.name
+    else
+      flash[:error] = "ユーザ登録していない人は立ち入り禁止です！"
+      redirect MainController.r(:index)
+    end
+  end
+
+  def redirect_index
+    flash[:error] = "ログインしていない人は立ち入り禁止です！"
+    redirect MainController.r(:index)
   end
 
 
