@@ -1,26 +1,26 @@
+/*
 * {
     margin: 0;
     padding: 0;
   }
-  
-  
+*/
+
   h1 {
     text-align: center;
   }
-  
+
   div#notice_error {
       border: solid medium #f00;
   }
-  
+
   body {
     margin: 0.5em;
     background: #ccf;
   }
-  
+
   main {
     clear: both;
     margin: 0.5em;
     background: #fff;
     padding: 0em;
   }
-  
