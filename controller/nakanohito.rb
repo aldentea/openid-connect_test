@@ -8,7 +8,7 @@ class NakanohitoController < Controller
     if request.post?
       user = User.create(:name => request[:nickname], :email => request[:email], :identifier => session[:identifier])
       if user.saved?
-        flash[:success] = "New user '#{user.name}' has created."
+        flash[:info] = "新規ユーザ '#{user.name}' が作成されました！"
         redirect MainController.r(:index)
       else
         user.errors.each do |e|
@@ -16,7 +16,6 @@ class NakanohitoController < Controller
         end
       end
     else
-      #@nickname = session[:openid_sreg]['nickname'] if session[:openid_sreg]
       @nickname = ""
       @email = session[:registering_email]
     end
